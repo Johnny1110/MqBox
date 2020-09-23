@@ -8,6 +8,7 @@ public class RabbitRecordReader implements RecordReader<String> {
     public void processRecord(String record) {
         System.out.println("收到訊息");
         System.out.println(record);
+        throw new RuntimeException("a");
     }
 
 }

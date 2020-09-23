@@ -13,6 +13,7 @@
         <rabbitmq.version>5.0.0</rabbitmq.version>
         <kafka.version>2.6.0</kafka.version>
         <slf4j.version>1.7.30</slf4j.version>
+        <activemq.version>5.1.0</activemq.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.resource.version>3.1.0</maven.resource.version>
     </properties>
@@ -42,6 +43,12 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
             <version>${kafka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+            <version>${activemq.version}</version>
         </dependency>
 
         <dependency>
@@ -80,6 +87,20 @@
                 <version>${maven.resource.version}</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>fully.qualified.MainClass</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
             </plugin>
         </plugins>
