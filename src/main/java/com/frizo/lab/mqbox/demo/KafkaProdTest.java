@@ -5,7 +5,6 @@ import com.frizo.lab.mqbox.producer.impl.MyKafkaProducer;
 import com.frizo.lab.mqbox.producer.property.KafkaProducerProperty;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import java.beans.Customizer;
 import java.util.ArrayList;
 import java.util.List;
 

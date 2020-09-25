@@ -85,6 +85,17 @@ public class KafkaConsumerProperty {
             return this;
         }
 
+        public KafkaConsumerPropertyBuilder enableAutoOffset(boolean enable){
+            String enableStr = enable ? "true" : "false";
+            props.put("enable.auto.offset.store", enableStr);
+            return this;
+        }
+
+        public KafkaConsumerPropertyBuilder maxPollRecords(int size){
+            props.put("max.poll.records", String.valueOf(size));
+            return this;
+        }
+
         public KafkaConsumerProperty build(){
             return new KafkaConsumerProperty(props, topics);
         }

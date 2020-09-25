@@ -19,7 +19,7 @@ public class KafkaCustTest {
         KafkaConsumerProperty property = KafkaConsumerProperty.KafkaConsumerPropertyBuilder.newBuilder()
                 .topics(topics)
                 .bootstrapServers(addresses)
-                .groupId("groupA")
+                .groupId("groupC")
                 .enableAutoCommit(true)
                 .autoCommitIntervalMs(1000)
                 .sessionTimeoutMs(30000)

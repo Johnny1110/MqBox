@@ -18,10 +18,6 @@ public class RabbitCustTest {
         consumer.startup();
 
         System.out.println("start up 之後");
-
-        Thread.sleep(3000);
-
-        consumer.shutdown();
     }
 
 }

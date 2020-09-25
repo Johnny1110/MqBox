@@ -9,7 +9,7 @@ public class RabbitProdTest {
     public static void main(String[] args) {
         RabbitProducerProperty property = RabbitProducerProperty.RabbitProducerPropertyBuilder.newBuilder()
                 .hostName("localhost")
-                .exchangeName("topic_logs")
+                .exchangeName("amq.topic")
                 .exchangeType("topic")
                 .routingKey("kern.aa")
                 .build();

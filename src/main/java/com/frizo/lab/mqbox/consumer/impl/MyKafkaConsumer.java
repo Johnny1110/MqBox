@@ -35,6 +35,9 @@ public class MyKafkaConsumer implements Consumer<KafkaConsumerProperty> {
                 msgList.forEach(msg -> {
                     recordReader.processRecord(msg.value());
                 });
+                if (property.getProps().getProperty("enable.auto.commit").equals("false")){
+                    consumer.commitAsync();
+                }
             }
             System.out.println("consumer shutdown.");
         }).start();
@@ -43,6 +46,8 @@ public class MyKafkaConsumer implements Consumer<KafkaConsumerProperty> {
     @Override
     public void shutdown() {
         this.flag = false;
+        this.consumer.commitAsync();
+        this.consumer.unsubscribe();
         this.consumer.close();
     }
 
