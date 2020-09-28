@@ -81,11 +81,6 @@ public class MyRabbitProducer implements Producer<RabbitProducerProperty> {
     }
 
     @Override
-    public void setProperty(RabbitProducerProperty property) {
-        this.property = property;
-    }
-
-    @Override
     public RabbitProducerProperty getProperty() {
         return this.property;
     }

@@ -1,5 +1,7 @@
 package com.frizo.lab.mqbox.consumer.property;
 
+import com.frizo.lab.mqbox.producer.property.KafkaProducerProperty;
+
 import java.util.List;
 import java.util.Properties;
 

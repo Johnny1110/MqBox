@@ -51,10 +51,6 @@ public class MyKafkaConsumer implements Consumer<KafkaConsumerProperty> {
         this.consumer.close();
     }
 
-    @Override
-    public void setProperty(KafkaConsumerProperty property) {
-        this.property = property;
-    }
 
     @Override
     public KafkaConsumerProperty getProperty() {

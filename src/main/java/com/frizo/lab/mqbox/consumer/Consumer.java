@@ -6,8 +6,6 @@ public interface Consumer<T> {
 
     void shutdown();
 
-    void setProperty(T property);
-
     T getProperty();
 
 }

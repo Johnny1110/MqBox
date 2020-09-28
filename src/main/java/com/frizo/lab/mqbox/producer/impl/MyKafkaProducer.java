@@ -27,12 +27,6 @@ public class MyKafkaProducer implements Producer<KafkaProducerProperty> {
     }
 
     @Override
-    public void setProperty(KafkaProducerProperty property) {
-        this.property = property;
-        this.producer = new KafkaProducer<String, String>(property.getProps());
-    }
-
-    @Override
     public KafkaProducerProperty getProperty() {
         return this.property;
     }

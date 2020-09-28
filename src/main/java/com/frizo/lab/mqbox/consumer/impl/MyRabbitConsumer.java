@@ -68,10 +68,6 @@ public class MyRabbitConsumer implements Consumer<RabbitConsumerProperty> {
         }
     }
 
-    @Override
-    public void setProperty(RabbitConsumerProperty property) {
-        this.property = property;
-    }
 
     @Override
     public RabbitConsumerProperty getProperty() {

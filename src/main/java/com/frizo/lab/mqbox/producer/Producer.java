@@ -6,8 +6,5 @@ public interface Producer<T> {
 
     void shutdown();
 
-    void setProperty(T property);
-
     T getProperty();
-
 }
