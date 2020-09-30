@@ -11,6 +11,8 @@ public class KafkaConsumerProperty {
 
     private List<String> topics;
 
+    private Long internalMillis;
+
     public Properties getProps(){
         return props;
     }
@@ -19,9 +21,14 @@ public class KafkaConsumerProperty {
         return topics;
     }
 
-    private KafkaConsumerProperty(Properties props, List<String> topics){
+    public Long getInternalMillis() {
+        return internalMillis;
+    }
+
+    private KafkaConsumerProperty(Properties props, List<String> topics, Long internalMillis){
         this.props = props;
         this.topics = topics;
+        this.internalMillis = internalMillis;
     }
 
     public static class KafkaConsumerPropertyBuilder {
@@ -30,6 +37,7 @@ public class KafkaConsumerProperty {
 
         private List<String> topics;
 
+        private Long internalMillis;
 
         private KafkaConsumerPropertyBuilder() {
         }
@@ -98,8 +106,13 @@ public class KafkaConsumerProperty {
             return this;
         }
 
+        public KafkaConsumerPropertyBuilder internalMillis(long param){
+            this.internalMillis = param;
+            return this;
+        }
+
         public KafkaConsumerProperty build(){
-            return new KafkaConsumerProperty(props, topics);
+            return new KafkaConsumerProperty(props, topics, internalMillis);
         }
 
     }

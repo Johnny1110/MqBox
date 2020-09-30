@@ -28,10 +28,12 @@ public class MyKafkaConsumer implements Consumer<KafkaConsumerProperty> {
         this.consumer = new KafkaConsumer<String, String>(property.getProps());
         this.consumer.subscribe(property.getTopics());
 
+        Long internalMillis = property.getInternalMillis();
+
         new Thread(() -> {
             ConsumerRecords<String, String> msgList;
             while (flag) {
-                msgList = consumer.poll(Duration.ofMillis(1000L));
+                msgList = consumer.poll(Duration.ofMillis(internalMillis));
                 msgList.forEach(msg -> {
                     recordReader.processRecord(msg.value());
                 });
