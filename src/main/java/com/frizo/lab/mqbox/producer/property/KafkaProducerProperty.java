@@ -38,13 +38,17 @@ public class KafkaProducerProperty {
         }
 
         public KafkaProducerPropertyBuilder bootstrapServers(List<String> addresses){
-            String hosts = String.join(",", addresses);
-            props.put("bootstrap.servers", hosts);
+            if (addresses != null){
+                String hosts = String.join(",", addresses);
+                props.put("bootstrap.servers", hosts);
+            }
             return this;
         }
 
         public KafkaProducerPropertyBuilder acks(String param){
-            props.put("acks", param);
+            if (param != null){
+                props.put("acks", param);
+            }
             return this;
         }
 
@@ -59,17 +63,23 @@ public class KafkaProducerProperty {
         }
 
         public KafkaProducerPropertyBuilder keySerializer(String seserializer){
-            props.put("key.serializer", seserializer);
+            if (seserializer != null){
+                props.put("key.serializer", seserializer);
+            }
             return this;
         }
 
         public KafkaProducerPropertyBuilder valueSerializer(String seserializer){
-            props.put("value.serializer", seserializer);
+            if (seserializer != null){
+                props.put("value.serializer", seserializer);
+            }
             return this;
         }
 
         public KafkaProducerPropertyBuilder topic(String topic){
-            this.topic = topic;
+            if (topic != null){
+                this.topic = topic;
+            }
             return this;
         }
 

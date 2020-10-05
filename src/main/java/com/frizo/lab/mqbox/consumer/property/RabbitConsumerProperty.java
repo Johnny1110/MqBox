@@ -32,22 +32,30 @@ public class RabbitConsumerProperty {
         }
 
         public RabbitConsumerPropertyBuilder hostName(String host){
-            this.properties.put("host", host);
+            if (host != null){
+                this.properties.put("host", host);
+            }
             return this;
         }
 
         public RabbitConsumerPropertyBuilder virtualHost(String virtualHost){
-            this.properties.put("virtualHost", virtualHost);
+            if (virtualHost != null){
+                this.properties.put("virtualHost", virtualHost);
+            }
             return this;
         }
 
         public RabbitConsumerPropertyBuilder username(String username){
-            this.properties.put("username", username);
+            if (username != null){
+                this.properties.put("username", username);
+            }
             return this;
         }
 
         public RabbitConsumerPropertyBuilder password(String password){
-            this.properties.put("password", password);
+            if (password != null){
+                this.properties.put("password", password);
+            }
             return this;
         }
 
@@ -57,7 +65,9 @@ public class RabbitConsumerProperty {
         }
 
         public RabbitConsumerPropertyBuilder queueName(String queueName){
-            this.properties.put("queueName", queueName);
+            if (queueName != null){
+                this.properties.put("queueName", queueName);
+            }
             return this;
         }
 

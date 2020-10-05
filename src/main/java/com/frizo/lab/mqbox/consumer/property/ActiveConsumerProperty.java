@@ -1,7 +1,6 @@
 package com.frizo.lab.mqbox.consumer.property;
 
 import com.frizo.lab.mqbox.exception.ActiveProducerPropertyBuilderException;
-import com.frizo.lab.mqbox.producer.property.ActiveProducerProperty;
 
 import java.util.Optional;
 import java.util.Properties;
@@ -46,33 +45,43 @@ public class ActiveConsumerProperty {
         }
 
         public ActiveConsumerPropertyBuilder username(String username){
-            properties.setProperty("username", username);
+            if (username != null) {
+                properties.setProperty("username", username);
+            }
             return this;
         }
 
         public ActiveConsumerPropertyBuilder password(String password){
-            properties.setProperty("password", password);
+            if (password != null){
+                properties.setProperty("password", password);
+            }
             return this;
         }
 
         public ActiveConsumerPropertyBuilder brokerUrl(String brokerUrl){
-            properties.setProperty("brokerUrl", brokerUrl);
+            if (brokerUrl != null){
+                properties.setProperty("brokerUrl", brokerUrl);
+            }
             return this;
         }
 
         public ActiveConsumerPropertyBuilder queueName(String queueName){
-            Optional.ofNullable(this.properties.getProperty("topicName")).ifPresent((topicName) -> {
-                throw new ActiveProducerPropertyBuilderException("you already set topic \"" + topicName + "\", and then you can't set queueName property.");
-            });
-            this.properties.setProperty("queueName", queueName);
+            if (queueName != null){
+                Optional.ofNullable(this.properties.getProperty("topicName")).ifPresent((topicName) -> {
+                    throw new ActiveProducerPropertyBuilderException("you already set topic \"" + topicName + "\", and then you can't set queueName property.");
+                });
+                this.properties.setProperty("queueName", queueName);
+            }
             return this;
         }
 
         public ActiveConsumerPropertyBuilder topicName(String topicName){
-            Optional.ofNullable(this.properties.getProperty("queueName")).ifPresent((queueName) -> {
-                throw new ActiveProducerPropertyBuilderException("you already set queueName \"" + queueName + "\", and then you can't set topicName property.");
-            });
-            this.properties.setProperty("topicName", topicName);
+            if (topicName != null){
+                Optional.ofNullable(this.properties.getProperty("queueName")).ifPresent((queueName) -> {
+                    throw new ActiveProducerPropertyBuilderException("you already set queueName \"" + queueName + "\", and then you can't set topicName property.");
+                });
+                this.properties.setProperty("topicName", topicName);
+            }
             return this;
         }
 

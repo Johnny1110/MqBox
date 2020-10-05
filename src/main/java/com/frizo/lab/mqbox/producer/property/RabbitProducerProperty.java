@@ -27,12 +27,16 @@ public class RabbitProducerProperty {
         }
 
         public RabbitProducerPropertyBuilder username(String username){
-            this.properties.setProperty("username", username);
+            if (username != null){
+                this.properties.setProperty("username", username);
+            }
             return this;
         }
 
         public RabbitProducerPropertyBuilder password(String password){
-            this.properties.setProperty("password", password);
+            if (password != null){
+                this.properties.setProperty("password", password);
+            }
             return this;
         }
 
@@ -42,32 +46,44 @@ public class RabbitProducerProperty {
         }
 
         public RabbitProducerPropertyBuilder hostName(String hostName){
-            this.properties.put("hostName", hostName);
+            if (hostName != null){
+                this.properties.put("hostName", hostName);
+            }
             return this;
         }
 
         public RabbitProducerPropertyBuilder virtualHost(String virtualHost){
-            this.properties.put("virtualHost", virtualHost);
+            if (virtualHost != null){
+                this.properties.put("virtualHost", virtualHost);
+            }
             return this;
         }
 
         public RabbitProducerPropertyBuilder exchangeName(String name){
-            this.properties.setProperty("exchangeName", name);
+            if (name != null){
+                this.properties.setProperty("exchangeName", name);
+            }
             return this;
         }
 
         public RabbitProducerPropertyBuilder exchangeType(String type){
-            this.properties.setProperty("exchangeType", type);
+            if (type != null){
+                this.properties.setProperty("exchangeType", type);
+            }
             return this;
         }
 
         public RabbitProducerPropertyBuilder routingKey(String routingKey){
-            this.properties.setProperty("routingKey", routingKey);
+            if (routingKey != null){
+                this.properties.setProperty("routingKey", routingKey);
+            }
             return this;
         }
 
         public RabbitProducerPropertyBuilder queueName(String queueName){
-            this.properties.setProperty("queueName", queueName);
+            if (queueName != null){
+                this.properties.setProperty("queueName", queueName);
+            }
             return this;
         }
 

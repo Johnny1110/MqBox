@@ -46,33 +46,43 @@ public class ActiveProducerProperty {
         }
 
         public ActiveProducerPropertyBuilder username(String username){
-            this.properties.put("username", username);
+            if (username != null){
+                this.properties.put("username", username);
+            }
             return this;
         }
 
         public ActiveProducerPropertyBuilder password(String password){
-            this.properties.put("password", password);
+            if (password != null){
+                this.properties.put("password", password);
+            }
             return this;
         }
 
         public ActiveProducerPropertyBuilder brokerUrl(String brokerUrl){
-            this.properties.put("brokerUrl", brokerUrl);
+            if (brokerUrl != null){
+                this.properties.put("brokerUrl", brokerUrl);
+            }
             return this;
         }
 
         public ActiveProducerPropertyBuilder queueName(String queueName){
-            Optional.ofNullable(this.properties.getProperty("topicName")).ifPresent((topicName) -> {
-                throw new ActiveProducerPropertyBuilderException("you already set topic \"" + topicName + "\", and then you can't set queueName property.");
-            });
-            this.properties.setProperty("queueName", queueName);
+            if (queueName != null){
+                Optional.ofNullable(this.properties.getProperty("topicName")).ifPresent((topicName) -> {
+                    throw new ActiveProducerPropertyBuilderException("you already set topic \"" + topicName + "\", and then you can't set queueName property.");
+                });
+                this.properties.setProperty("queueName", queueName);
+            }
             return this;
         }
 
         public ActiveProducerPropertyBuilder topicName(String topicName){
-            Optional.ofNullable(this.properties.getProperty("queueName")).ifPresent((queueName) -> {
-                throw new ActiveProducerPropertyBuilderException("you already set queueName \"" + queueName + "\", and then you can't set topicName property.");
-            });
-            this.properties.setProperty("topicName", topicName);
+            if (topicName != null){
+                Optional.ofNullable(this.properties.getProperty("queueName")).ifPresent((queueName) -> {
+                    throw new ActiveProducerPropertyBuilderException("you already set queueName \"" + queueName + "\", and then you can't set topicName property.");
+                });
+                this.properties.setProperty("topicName", topicName);
+            }
             return this;
         }
 

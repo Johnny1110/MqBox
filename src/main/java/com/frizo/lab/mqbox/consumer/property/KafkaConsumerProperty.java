@@ -49,13 +49,17 @@ public class KafkaConsumerProperty {
         }
 
         public KafkaConsumerPropertyBuilder bootstrapServers(List<String> addresses){
-            String hosts = String.join(",", addresses);
-            props.put("bootstrap.servers", hosts);
+            if (addresses != null){
+                String hosts = String.join(",", addresses);
+                props.put("bootstrap.servers", hosts);
+            }
             return this;
         }
 
         public KafkaConsumerPropertyBuilder groupId(String id){
-            props.put("group.id", id);
+            if (id != null){
+                props.put("group.id", id);
+            }
             return this;
         }
 
@@ -76,22 +80,30 @@ public class KafkaConsumerProperty {
         }
 
         public KafkaConsumerPropertyBuilder autoOffsetReset(String param){
-            props.put("auto.offset.reset", param);
+            if (param != null){
+                props.put("auto.offset.reset", param);
+            }
             return this;
         }
 
         public KafkaConsumerPropertyBuilder keyDeserializer(String deserializer){
-            props.put("key.deserializer", deserializer);
+            if(deserializer != null){
+                props.put("key.deserializer", deserializer);
+            }
             return this;
         }
 
         public KafkaConsumerPropertyBuilder valueDeserializer(String deserializer){
-            props.put("value.deserializer", deserializer);
+            if (deserializer != null){
+                props.put("value.deserializer", deserializer);
+            }
             return this;
         }
 
         public KafkaConsumerPropertyBuilder topics(List<String> topics){
-            this.topics = topics;
+            if (topics != null){
+                this.topics = topics;
+            }
             return this;
         }
 
