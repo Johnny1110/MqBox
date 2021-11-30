@@ -77,7 +77,7 @@ public class MyActiveProducer implements Producer<ActiveProducerProperty> {
     }
 
     @Override
-    public void send(String msg) {
+    public void send(String msg, String key) {
         try {
             producer.send(session.createTextMessage(msg));
         } catch (Exception e) {

@@ -1,8 +1,8 @@
 package com.frizo.lab.mqbox.demo;
 
-import com.frizo.lab.mqbox.producer.Producer;
-import com.frizo.lab.mqbox.producer.impl.MyKafkaProducer;
-import com.frizo.lab.mqbox.producer.property.KafkaProducerProperty;
+import com.netpro.trinity.streamjob.mqbox.producer.Producer;
+import com.netpro.trinity.streamjob.mqbox.producer.impl.MyKafkaProducer;
+import com.netpro.trinity.streamjob.mqbox.producer.property.KafkaProducerProperty;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class KafkaProdTest {
         Producer producer = new MyKafkaProducer(property);
 
         for (int i = 0; i < 2000; ++i){
-            producer.send("hello world " + i);
+            //producer.send("hello world " + i);
         }
 
         producer.shutdown();

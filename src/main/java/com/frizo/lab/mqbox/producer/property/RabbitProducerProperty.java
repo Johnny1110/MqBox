@@ -66,16 +66,9 @@ public class RabbitProducerProperty {
             return this;
         }
 
-        public RabbitProducerPropertyBuilder exchangeType(String type){
+        public RabbitProducerPropertyBuilder exchangeType(RabbitExchangeTypes type){
             if (type != null){
-                this.properties.setProperty("exchangeType", type);
-            }
-            return this;
-        }
-
-        public RabbitProducerPropertyBuilder routingKey(String routingKey){
-            if (routingKey != null){
-                this.properties.setProperty("routingKey", routingKey);
+                this.properties.setProperty("exchangeType", type.toString());
             }
             return this;
         }
@@ -87,9 +80,16 @@ public class RabbitProducerProperty {
             return this;
         }
 
+        public RabbitProducerPropertyBuilder queueDurable(boolean queueDurable){
+            String durable = String.valueOf(queueDurable);
+            this.properties.setProperty("queueDurable", durable);
+            return this;
+        }
+
         public RabbitProducerProperty build(){
             return new RabbitProducerProperty(properties);
         }
 
     }
+
 }

@@ -17,14 +17,24 @@ public class MyRabbitProducer implements Producer<RabbitProducerProperty> {
     private RabbitProducerProperty property;
 
     private Channel channel;
+
     private Connection connection;
+
+    private boolean useDefaultEx = true;
+
+    private String exchangeName;
+
+    private String exchangeType;
+
+    private String queueName;
+
+    private boolean queueDurable;
 
     public MyRabbitProducer(RabbitProducerProperty props){
         this.property = props;
         ConnectionFactory factory = new ConnectionFactory();
         Properties properties = property.getProperties();
         factory.setHost(properties.getProperty("hostName"));
-
 
         Optional.ofNullable(properties.getProperty("virtualHost")).ifPresent(factory::setVirtualHost);
         Optional.ofNullable(properties.getProperty("username")).ifPresent(factory::setUsername);
@@ -40,34 +50,47 @@ public class MyRabbitProducer implements Producer<RabbitProducerProperty> {
             e.printStackTrace();
         }
 
-    }
-
-    @Override
-    public void send(String msg) {
-        Properties properties = property.getProperties();
+        // 加入在準備階段宣告 queue  或  exchange 的邏輯。
         Optional<String> excName =  Optional.ofNullable(properties.getProperty("exchangeName"));
         Optional<String> queueName = Optional.ofNullable(properties.getProperty("queueName"));
-        verifyDestination(excName, queueName);
+        Optional<String> excType =  Optional.ofNullable(properties.getProperty("exchangeType"));
+        Optional<Boolean> queuDurable = Optional.ofNullable((Boolean) properties.get("queueDurable"));
+        this.useDefaultEx = isUsingDefaultEx(properties);
+        verifyDestination(useDefaultEx, excName, excType, queueName);
 
-        // 直接透過默認 exchange (" ") 送往指定 queue。
-        queueName.ifPresent(qName -> {
+        if (useDefaultEx){
+            this.queueName = queueName.get();
+            this.queueDurable = queuDurable.orElse(false);
             try {
-                channel.basicPublish("", qName, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes("UTF-8"));
+                channel.queueDeclare(this.queueName, this.queueDurable, false, false, null);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
-
-        // 把 msg 送往事先設定好的 exchange，並使用 routingKey 指定可接收 queue。
-        excName.ifPresent(eName -> {
-            String routingKey = properties.getProperty("routingKey");
+        } else{
+            this.exchangeName = excName.get();
+            this.exchangeType = excType.get();
             try {
-                channel.basicPublish(eName, routingKey, null, msg.getBytes("UTF-8"));
+                channel.exchangeDeclare(exchangeName, exchangeType);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+        }
+    }
 
+
+
+
+    @Override
+    public void send(String msg, String routingKey) {
+        try {
+            if (useDefaultEx){
+                channel.basicPublish("", queueName, MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes("UTF-8"));
+            }else{
+                channel.basicPublish(exchangeName, routingKey, null, msg.getBytes("UTF-8"));
+            }
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -85,10 +108,29 @@ public class MyRabbitProducer implements Producer<RabbitProducerProperty> {
         return this.property;
     }
 
-    private void verifyDestination(Optional<String> excName,  Optional<String> queueName) {
-        if (excName.isPresent() && queueName.isPresent()){
-            throw new RabbitProducerPropertyBuilderException("Set properties error: \"exchangeName\" and \"queueName\" can't be setted at the same time.");
+    private boolean isUsingDefaultEx(Properties properties) {
+        Optional<String> exchangeTypeOpt = Optional.of(properties.getProperty("exchangeType"));
+        String exchangeType = exchangeTypeOpt.orElse("default");
+        return exchangeType.equals("default");
+    }
+
+    private void verifyDestination(boolean useDefaultEx, Optional<String> excName, Optional<String> excType, Optional<String> queueName) {
+        if (useDefaultEx && excName.isPresent()){
+            throw new RabbitProducerPropertyBuilderException("If using default Exchange, please delete exchangeName property.");
+        }
+
+        if (useDefaultEx && !queueName.isPresent()){
+            throw new RabbitProducerPropertyBuilderException("If using default Exchange, you should give a queueName for property.");
+        }
+
+        if (!useDefaultEx && !excType.isPresent()){
+            throw new RabbitProducerPropertyBuilderException("If not using default Exchange, you should give a certain exchange type for property.");
+        }
+
+        if (!useDefaultEx && !excName.isPresent()){
+            throw new RabbitProducerPropertyBuilderException("if not using default Exchange, please give a certain exchange name for property");
         }
     }
+
 
 }

@@ -1,10 +1,15 @@
 package com.frizo.lab.mqbox.consumer.property;
 
+import com.frizo.lab.mqbox.producer.property.RabbitExchangeTypes;
+
+import java.util.List;
 import java.util.Properties;
 
 public class RabbitConsumerProperty {
 
     private Properties properties;
+
+    private List<String> routingKeys;
 
     public Properties getProperties() {
         return properties;
@@ -14,13 +19,20 @@ public class RabbitConsumerProperty {
         this.properties = properties;
     }
 
-    private RabbitConsumerProperty(Properties props){
-        properties = props;
+    public List<String> getRoutingKeys(){
+        return this.routingKeys;
+    }
+
+    private RabbitConsumerProperty(Properties props, List<String> routingKeys){
+        this.properties = props;
+        this.routingKeys = routingKeys;
     }
 
     public static class RabbitConsumerPropertyBuilder{
 
         private Properties properties;
+
+        private List<String> routingKeys;
 
         private RabbitConsumerPropertyBuilder(){
         }
@@ -81,8 +93,27 @@ public class RabbitConsumerProperty {
             return this;
         }
 
+        public RabbitConsumerPropertyBuilder exchangeName(String name){
+            if (name != null){
+                this.properties.setProperty("exchangeName", name);
+            }
+            return this;
+        }
+
+        public RabbitConsumerPropertyBuilder exchangeType(RabbitExchangeTypes type){
+            if (type != null){
+                this.properties.setProperty("exchangeType", type.toString());
+            }
+            return this;
+        }
+
+        public RabbitConsumerPropertyBuilder routingKeys(List<String> routingKeys){
+            this.routingKeys = routingKeys;
+            return this;
+        }
+
         public RabbitConsumerProperty build(){
-            return new RabbitConsumerProperty(this.properties);
+            return new RabbitConsumerProperty(this.properties, this.routingKeys);
         }
     }
 }

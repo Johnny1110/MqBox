@@ -1,8 +1,8 @@
 package com.frizo.lab.mqbox.demo;
 
-import com.frizo.lab.mqbox.producer.Producer;
-import com.frizo.lab.mqbox.producer.impl.MyActiveProducer;
-import com.frizo.lab.mqbox.producer.property.ActiveProducerProperty;
+import com.netpro.trinity.streamjob.mqbox.producer.Producer;
+import com.netpro.trinity.streamjob.mqbox.producer.impl.MyActiveProducer;
+import com.netpro.trinity.streamjob.mqbox.producer.property.ActiveProducerProperty;
 
 public class ActiveProdTest {
 
@@ -19,7 +19,7 @@ public class ActiveProdTest {
 
         Producer<ActiveProducerProperty> producer = new MyActiveProducer(property);
 
-        producer.send("This is msg-testing!");
+        producer.send("This is msg-testing!", null);
         producer.shutdown();
     }
 

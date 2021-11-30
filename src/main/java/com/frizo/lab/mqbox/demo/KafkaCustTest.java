@@ -1,8 +1,8 @@
 package com.frizo.lab.mqbox.demo;
 
-import com.frizo.lab.mqbox.consumer.Consumer;
-import com.frizo.lab.mqbox.consumer.impl.MyKafkaConsumer;
-import com.frizo.lab.mqbox.consumer.property.KafkaConsumerProperty;
+import com.netpro.trinity.streamjob.mqbox.consumer.Consumer;
+import com.netpro.trinity.streamjob.mqbox.consumer.impl.MyKafkaConsumer;
+import com.netpro.trinity.streamjob.mqbox.consumer.property.KafkaConsumerProperty;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class KafkaCustTest {
                 .valueDeserializer(StringDeserializer.class.getName())
                 .build();
 
-        Consumer<KafkaConsumerProperty> consumer = new MyKafkaConsumer(new KafkaRecordReader(), property);
+        Consumer<KafkaConsumerProperty> consumer = new MyKafkaConsumer(new com.netpro.trinity.streamjob.mqbox.demo.KafkaRecordReader(), property);
         consumer.startup();
     }
 }

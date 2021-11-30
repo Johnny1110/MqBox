@@ -1,11 +1,8 @@
 package com.frizo.lab.mqbox.demo;
 
-import com.frizo.lab.mqbox.consumer.Consumer;
-import com.frizo.lab.mqbox.consumer.impl.MyActiveConsumer;
-import com.frizo.lab.mqbox.consumer.property.ActiveConsumerProperty;
-import com.frizo.lab.mqbox.producer.Producer;
-import com.frizo.lab.mqbox.producer.impl.MyActiveProducer;
-import com.frizo.lab.mqbox.producer.property.ActiveProducerProperty;
+import com.netpro.trinity.streamjob.mqbox.consumer.Consumer;
+import com.netpro.trinity.streamjob.mqbox.consumer.impl.MyActiveConsumer;
+import com.netpro.trinity.streamjob.mqbox.consumer.property.ActiveConsumerProperty;
 
 public class ActiveCustTest {
 
@@ -19,7 +16,7 @@ public class ActiveCustTest {
                 .queueName("test_queue")
                 .build();
 
-        Consumer<ActiveConsumerProperty> consumer = new MyActiveConsumer(property, new ActiveRecordReader());
+        Consumer<ActiveConsumerProperty> consumer = new MyActiveConsumer(property, new com.netpro.trinity.streamjob.mqbox.demo.ActiveRecordReader());
         consumer.startup();
     }
 

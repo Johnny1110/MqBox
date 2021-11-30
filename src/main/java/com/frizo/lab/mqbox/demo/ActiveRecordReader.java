@@ -1,6 +1,6 @@
 package com.frizo.lab.mqbox.demo;
 
-import com.frizo.lab.mqbox.consumer.processor.RecordReader;
+import com.netpro.trinity.streamjob.mqbox.consumer.processor.RecordReader;
 
 public class ActiveRecordReader implements RecordReader<String> {
     @Override

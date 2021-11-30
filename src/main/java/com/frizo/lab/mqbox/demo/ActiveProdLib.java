@@ -11,7 +11,7 @@ public class ActiveProdLib {
     public static final String DESTINATION = "sagedragon.mq.queue";
 
     public static void main(String[] args) {
-
+        thread(new HelloWorldProducer(), false);
     }
 
     public static void thread(Runnable runnable, boolean daemon) {

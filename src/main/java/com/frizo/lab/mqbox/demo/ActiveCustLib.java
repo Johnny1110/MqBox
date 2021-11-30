@@ -7,7 +7,7 @@ import javax.jms.*;
 public class ActiveCustLib {
 
     public static void main(String[] args) {
-
+        new Thread(new HelloWorldConsumer()).start();
     }
 
     public static class HelloWorldConsumer implements Runnable, ExceptionListener {

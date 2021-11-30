@@ -1,22 +1,29 @@
 package com.frizo.lab.mqbox.demo;
 
-import com.frizo.lab.mqbox.producer.Producer;
-import com.frizo.lab.mqbox.producer.impl.MyRabbitProducer;
-import com.frizo.lab.mqbox.producer.property.RabbitProducerProperty;
+import com.netpro.trinity.streamjob.mqbox.producer.Producer;
+import com.netpro.trinity.streamjob.mqbox.producer.impl.MyRabbitProducer;
+import com.netpro.trinity.streamjob.mqbox.producer.property.RabbitExchangeTypes;
+import com.netpro.trinity.streamjob.mqbox.producer.property.RabbitProducerProperty;
+
+import java.lang.reflect.Field;
 
 public class RabbitProdTest {
 
     public static void main(String[] args) {
+
+        Field f;
+
         RabbitProducerProperty property = RabbitProducerProperty.RabbitProducerPropertyBuilder.newBuilder()
                 .hostName("localhost")
-                .exchangeName("amq.topic")
-                .exchangeType("topic")
-                .routingKey("kern.aa")
+                .virtualHost("/")
+                .exchangeName("myDirect")
+                .exchangeType(RabbitExchangeTypes.DIRECT)
+                //.port(8181)
                 .build();
 
         Producer<RabbitProducerProperty> producer = new MyRabbitProducer(property);
 
-        producer.send("Hello, this is MyRabbitProducer first testing!!!");
+        producer.send("Hello, this is MyRabbitProducer first testing!!!", "abc");
 
         producer.shutdown();
 

@@ -17,8 +17,8 @@ public class MyKafkaProducer implements Producer<KafkaProducerProperty> {
     }
 
     @Override
-    public void send(String msg) {
-        producer.send(new ProducerRecord<String, String>(property.getTopic(), "Message", msg));
+    public void send(String msg, String key) {
+        producer.send(new ProducerRecord<String, String>(property.getTopic(), key, msg));
     }
 
     @Override
